@@ -1,3 +1,5 @@
+package com.javagame.view;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.sql.Connection;
@@ -19,12 +21,16 @@ import javax.swing.SwingConstants;
 
 import com.mysql.jdbc.PreparedStatement;
 
+
+import com.javagame.controller.RegistrationController;
+import com.javagame.model.User;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JPasswordField;
 
-public class JavaGame extends JFrame {
+public class RegistrationWindow extends JFrame {
 	
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
@@ -33,8 +39,9 @@ public class JavaGame extends JFrame {
 	private JTextField txtSurname;
 	private JTextField txtEmail;
 	private JButton registerButton;
+	private User userData;
 
-	public JavaGame() {
+	public RegistrationWindow() {
 		this.setResizable(false);
 		this.setMinimumSize(new  Dimension(600, 480));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,10 +54,11 @@ public class JavaGame extends JFrame {
 		txtSurname = new JTextField(25);
 		txtEmail = new JTextField(50);	
 		registerButton = new JButton("Register");
+		registerButton.setActionCommand("registerButton");
 		//registerButton.addActionListener(this);
 		
 		JPanel registrationPanel = new JPanel();
-		registrationPanel.setLayout(new GridLayout(7, 2, 10, 20));
+		registrationPanel.setLayout(new GridLayout(6, 2, 10, 20));
 		registrationPanel.add(new JLabel("First Name:"));
         registrationPanel.add(txtName);
         registrationPanel.add(new JLabel("Last Name:"));
@@ -61,21 +69,30 @@ public class JavaGame extends JFrame {
         registrationPanel.add(txtPassword);
         registrationPanel.add(new JLabel("Re-enter Password:"));
         registrationPanel.add(txtConfirmPassword);
-        registrationPanel.add("South", registerButton);
+        registrationPanel.add(registerButton);
 		
 		this.setContentPane(registrationPanel);
 		this.pack();
-
-		registerButton.addActionListener(new ActionListener() {
+		registerButton.addActionListener(new RegistrationController(this));
+/*		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(RegisterData()) {
 					JOptionPane.showMessageDialog(null,
 							"Registration was Successful");
 				}
 			}
-		});
+		});*/
 	}
 	
+	public User getUserInput() {
+        userData = new User(txtName.getText(), txtSurname.getText(), txtUsername.getText(), new String(txtPassword.getPassword()), txtEmail.getText());
+        return userData;
+    }
+	
+	public char[] getPassword(){
+		return this.txtConfirmPassword.getPassword();
+	}
+/*	
 	private Boolean RegisterData()
 	{
 		
@@ -136,7 +153,7 @@ public class JavaGame extends JFrame {
 					"Please Input (Email)");
 			txtEmail.requestFocusInWindow(); 
 			return false;
-		}	
+		}	*/
 		
 /*		Connection connect = null;
 		Statement s = null;
@@ -185,12 +202,22 @@ public class JavaGame extends JFrame {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		}*/
+		}
 		
 		return true;
 
 	}
 
+	
+    public void showMessage(String message, boolean isValid) {
+        if (isValid) {
+            JOptionPane.showMessageDialog(this, message, "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, message, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 	
 	//Method validates the username & password
     private boolean validate_userName(String username) {
@@ -212,7 +239,7 @@ public class JavaGame extends JFrame {
     }
 	
     
-    
+ */   
     
 /*	public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
@@ -232,15 +259,5 @@ public class JavaGame extends JFrame {
         }
     }*/
 	
-	//Launch the application.
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				JavaGame frame = new JavaGame();
-				frame.setVisible(true);
-			}
-		});
-	}
 
-	
 }
