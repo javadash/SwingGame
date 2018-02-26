@@ -17,12 +17,12 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class RegistrationController implements ActionListener {
 	private User user;
-    //private DatabaseManager dbManager;
+    private DbManager dbManager;
     private RegistrationWindow registrationWindow;
 
     public RegistrationController(RegistrationWindow registrationWindow) {
         this.registrationWindow = registrationWindow;
-        //this.dbManager = new DatabaseManager();
+        this.dbManager = new DbManager();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class RegistrationController implements ActionListener {
 		
 		user = registrationWindow.getUserInput();
 		String confirmPassword = new String(registrationWindow.getPassword());
-		Boolean userDuplicate = validate_userName(user.getUserName());
+		Boolean userDuplicate = dbManager.validate_userName(user.getUserName());
 		
 		if(user.getUserName().equals("")) // Username
 		{
@@ -100,7 +100,7 @@ public class RegistrationController implements ActionListener {
 		return true;
 	}
 	
-	//Method validates the username & password
+/*	//Method validates the username & password
     private boolean validate_userName(String username) {
         try{           
             Class.forName("com.mysql.jdbc.Driver");  // MySQL database connection
@@ -118,7 +118,7 @@ public class RegistrationController implements ActionListener {
             return false;
         }
        
-    }
+    }*/
     
 	//Launch the application.
 	public static void main(String[] args) {
