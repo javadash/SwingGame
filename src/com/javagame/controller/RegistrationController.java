@@ -29,8 +29,10 @@ public class RegistrationController implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getActionCommand().equals("registerButton")) {
 			if(InputValidation()) {
-				JOptionPane.showMessageDialog(null,
-						"Registration was Successful");
+				if(dbManager.addNewUser(user)){
+					JOptionPane.showMessageDialog(null,
+							"Registration was Successful");
+				}
 			}
         }
     }

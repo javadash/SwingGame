@@ -42,7 +42,7 @@ public class RegistrationWindow extends JFrame {
 	private User userData;
 
 	public RegistrationWindow() {
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.setMinimumSize(new  Dimension(600, 480));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Registration Page");
@@ -58,7 +58,7 @@ public class RegistrationWindow extends JFrame {
 		//registerButton.addActionListener(this);
 		
 		JPanel registrationPanel = new JPanel();
-		registrationPanel.setLayout(new GridLayout(6, 2, 10, 20));
+		registrationPanel.setLayout(new GridLayout(7, 2, 10, 20));
 		registrationPanel.add(new JLabel("First Name:"));
         registrationPanel.add(txtName);
         registrationPanel.add(new JLabel("Last Name:"));
@@ -69,6 +69,8 @@ public class RegistrationWindow extends JFrame {
         registrationPanel.add(txtPassword);
         registrationPanel.add(new JLabel("Re-enter Password:"));
         registrationPanel.add(txtConfirmPassword);
+        registrationPanel.add(new JLabel("Email:"));
+        registrationPanel.add(txtEmail);
         registrationPanel.add(registerButton);
 		
 		this.setContentPane(registrationPanel);
